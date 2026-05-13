@@ -47,3 +47,5 @@ async function buscarCep() {
     <p><strong>Estado:</strong> ${dados.uf}</p>
   `;
 }
+
+//Ana Clara 
