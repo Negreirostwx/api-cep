@@ -1,3 +1,19 @@
+// Detecta se o usuário apertou Enter
+function teclaEnter(evento) {
+  if (evento.key === "Enter") {
+    buscarCep();
+  }
+}
+
+// Formata o CEP enquanto o usuário digita (ex: 01310-100)
+document.getElementById("cep").addEventListener("input", function () {
+  let valor = this.value.replace(/\D/g, ""); // remove tudo que não é número
+  if (valor.length > 5) {
+    valor = valor.slice(0, 5) + "-" + valor.slice(5, 8); // adiciona o traço
+  }
+  this.value = valor;
+});
+
 async function buscarCep() {
     const cep = document.getElementById("cep").value.replace("-", "");
     const resultado = document.getElementById("resultado");
@@ -9,22 +25,6 @@ async function buscarCep() {
     if (cep.length !== 8) {
         resultado.innerHTML = `<p class="erro">Digite um CEP com 8 números.</p>`;
         return;
-    }
-
-    // Formata o CEP enquanto o usuário digita (ex: 01310-100)
-    document.getElementById("cep").addEventListener("input", function () {
-        let valor = this.value.replace(/\D/g, ""); // remove tudo que não é número
-        if (valor.length > 5) {
-            valor = valor.slice(0, 5) + "-" + valor.slice(5, 8); // adiciona o traço
-        }
-        this.value = valor;
-    });
-
-    // Detecta se o usuário apertou Enter
-    function teclaEnter(evento) {
-        if (evento.key === "Enter") {
-            buscarCep();
-        }
     }
 
     const url = `https://viacep.com.br/ws/${cep}/json/`;
